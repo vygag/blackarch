@@ -1,0 +1,53 @@
+# Опция -r предотвращает удаление пустых пунктов меню и строк, что делает вещи намного более удобочитаемыми.
+#
+[begin] (Fluxbox)
+[encoding] {UTF-8}
+    [submenu] (Приложения)
+    [exec] (Chromium) {chromium}
+	[exec] (Telegram) {/home/vyga/Telegram/Telegram}
+	[exec] (Tor) {/home/vyga/tor-browser_ru/start-tor-browser.desktop}
+	[separator]
+	[exec] (AbiWord) {abiword}
+    [exec] (Gnumeric) {gnumeric}
+    [exec] (Evince) {evince}
+    [exec] (Zathura) {zathura}
+    [exec] (Просмотр изображений) {gpicview}
+    [exec] (mtPaint) {mtpaint}
+    [separator]
+    [exec] (Менеджер архивов) {xarchiver}
+    [exec] (Htop) {lxterminal -e htop}
+    [exec] (Midnight Commander) {lxterminal -e mc}
+    [separator]
+    [exec] (Проигрыватель mpv) {mpv}
+    [separator]
+    [exec] (Wireshark) {wireshark}
+     [end]
+    [exec] (Выполнить) {fbrun}
+    [separator]
+	[exec] (Календарь) {zenity --calendar}
+	[separator]
+	[exec] (Терминал) {lxterminal}
+	[exec] (Gnote) {gnote}
+	[exec] (Thunar) {thunar}
+	[exec] (Geany) {geany}
+    [exec] (CherryTree) {cherrytree}
+    [exec] (Firefox) {firefox}
+    [exec] (Почта) {thunderbird}
+    [exec] (Торрент) {transmission-gtk}
+    [separator]
+    [submenu] (Настройки)
+    [config] (Конфигурация)
+    [reconfig] (Перечитать файлы кофигурации)
+    [restart] (Перезапуск Fluxbox)
+    [commanddialog] (Fluxbox Команды)
+    [exec] (Настройка Темы GTK) {lxappearance}
+     [end]
+    [separator]
+    [submenu] (Выйти)
+        [exit] (Выход)
+        [exec] (Перезагрузить) {systemctl reboot}
+        [exec] (Ждущий режим) {systemctl suspend}
+        [exec] (Выключение) {systemctl poweroff}
+        [end]
+[endencoding]
+[end]

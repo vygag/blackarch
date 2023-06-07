@@ -1,0 +1,79 @@
+# Нажмите на рабочий стол чтобы открыть меню
+OnDesktop Mouse1 :HideMenus
+OnDesktop Mouse2 :WorkspaceMenu
+OnDesktop Mouse3 :RootMenu
+
+# Начните перетаскивать чтобы изменить размер окна как если бы вы захватили окно в указанном углу
+OnLeftGrip Move1 :StartResizing bottomleft
+OnRightGrip Move1 :StartResizing bottomright
+
+# Дважды щелкните на строке заголовка чтобы затенить
+OnTitlebar Double Mouse1 :Shade
+
+# Средний щелчок по строке заголовка чтобы переключить окна таб
+OnTitlebar Mouse2 :Lower
+
+# Щелкните правой кнопкой мыши на строке заголовка чтобы открыть меню опций
+OnTitlebar Mouse3 :WindowMenu
+
+# Щелкните левой кнопкой мыши на строке заголовка чтобы переместить окно
+OnTitlebar Move1 :StartMoving
+
+# Активирует окно под мышью
+OnTitlebar Mouse1 :Focus
+
+# Управление звуком Alsa
+XF86AudioRaiseVolume :ExecCommand amixer set Master 4%+
+XF86AudioLowerVolume :ExecCommand amixer set Master 4%-
+
+# Управление яркостью экрана xbacklight
+XF86MonBrightnessUp :ExecCommand xbacklight -inc 1
+XF86MonBrightnessDown :ExecCommand xbacklight -dec 1
+
+# Управление яркостью экрана brightnessctl
+#XF86MonBrightnessUp :ExecCommand brightnessctl set +1
+#XF86MonBrightnessDown :ExecCommand brightnessctl set -1
+
+# Сделать скриншот Print scrot
+Print :Exec scrot -u /home/vyga/foto/scr.png
+Shift Print :Exec scrot /home/vyga/foto/screen.png
+Control Print :Exec scrot -s
+
+# Свернуть окно
+Mod4 z :Minimize
+
+# Fullscreen развернуть на весь экран
+Mod4 a :Fullscreen
+
+# Закрыть текущее окно
+Mod4 q :Close
+
+# Переход к следуюшему ( предыдущему ) окну
+Mod1 Tab :NextWindow
+
+# Переместить плавающее окно
+OnWindow Mod1 Mouse1 :StartMoving
+
+# Вызов меню
+Mod4 space :RootMenu
+
+# Открыть терминал 
+Mod4 x :Exec lxterminal
+
+# Запуск программ
+Mod4 1 :Exec geany
+Mod4 2 :Exec gnote
+Mod4 3 :Exec thunar
+Mod4 4 :Exec firefox
+Mod4 5 :Exec transmission-gtk
+Mod4 6 :Exec thunderbird
+Mod4 7 :Exec cherrytree
+Mod4 8 :Exec chromium
+Mod4 0 :Exec wireshark
+
+Mod4 c :Exec zenity --calendar
+Mod4 n :Exec nm-applet
+Mod4 b :Exec cbatticon -l 6 -r 4
+
+# Сон
+Mod4 Return :Exec systemctl suspend

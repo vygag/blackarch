@@ -1,0 +1,127 @@
+background:                             fullscreen
+background.color:                       #000000
+background.colorTo:                     #000000
+
+toolbar:						        flat gradient vertical
+toolbar.bevelWidth:					    1
+toolbar.borderWidth:					1
+toolbar.borderColor:					#000000
+toolbar.height:						    13 
+toolbar.justify:					    center
+toolbar.color:						    #ffffff
+toolbar.colorTo:					    #ffffff
+toolbar.shaped:                         false
+toolbar.clock:						    flat gradient vertical
+toolbar.clock.justify:					center
+toolbar.clock.color:					#000000
+toolbar.clock.colorTo:					#000000
+toolbar.clock.textColor:				#ffffff
+toolbar.clock.font:                     liberation mono-8
+toolbar.workspace:					    flat gradient vertical					
+toolbar.workspace.justify:				center
+toolbar.workspace.color:				#000000			
+toolbar.workspace.colorTo:				#000000
+toolbar.workspace.textColor:		    #ffffff
+toolbar.workspace.font:                 liberation mono-8
+toolbar.button:						    flat gradient vertical				 
+toolbar.button.color:					#ffffff				
+toolbar.button.colorTo:					#ffffff
+toolbar.button.picColor:				#ffffff
+toolbar.button.pressed:					flat gradient vertical			
+toolbar.button.pressed.color:			#ffffff			
+toolbar.button.pressed.colorTo:			#ffffff
+toolbar.button.pressed.picColor:        #ffffff
+toolbar.iconbar.empty:					flat gradient vertical
+toolbar.iconbar.empty.color:			#ffffff
+toolbar.iconbar.empty.colorTo:			#ffffff
+toolbar.iconbar.borderWidth: 			0
+toolbar.iconbar.focused.borderWidth:	1
+toolbar.iconbar.focused.borderColor:	#444444
+toolbar.iconbar.focused:				flat gradient vertical
+toolbar.iconbar.focused.color:			#444444
+toolbar.iconbar.focused.colorTo:		#444444
+toolbar.iconbar.focused.textColor:		#03fc20
+toolbar.iconbar.focused.justify:		center
+toolbar.iconbar.unfocused.borderWidth:	1
+toolbar.iconbar.unfocused.borderColor:	#ffffff
+toolbar.iconbar.unfocused:				flat gradient vertical	
+toolbar.iconbar.unfocused.color:		#000000
+toolbar.iconbar.unfocused.colorTo:		#000000
+toolbar.iconbar.unfocused.textColor:	#ffffff
+toolbar.iconbar.unfocused.justify:		center
+toolbar.font:                           liberation mono-8
+
+menu.bevelWidth:					    0
+menu.itemHeight:					    14
+menu.titleHeight:					    14
+menu.roundCorners:						
+menu.borderColor:					    #5c3a32
+menu.borderWidth:					    1
+menu.bullet.position:					Right
+menu.bullet:						    triangle
+menu.title:						        flat gradient vertical vertical								
+menu.title.justify:					    center
+menu.title.color:					    #5c3a32						
+menu.title.colorTo:					    #5c3a32					
+menu.title.textColor:					#000000
+menu.title.font:                        liberation mono-8
+menu.frame:	                            flat							
+menu.frame.justify:					    left
+menu.frame.color:					    #000000
+menu.frame.colorTo:					    #000000
+menu.frame.textColor:					#ffffff
+menu.frame.disableColor:				
+menu.frame.font:                        liberation mono-10
+menu.hilite:						    flat gradient vertical
+menu.hilite.color:					    #28309c
+menu.hilite.colorTo:					#28309c	
+menu.hilite.textColor:					#ffffff
+
+window.bevelWidth:					    1
+window.shade:							
+window.borderWidth:					    1
+window.borderColor:					    #5c3a32
+window.roundCorners:					
+window.justify:						    center
+window.title.height:					12
+window.title.focus:					    flat gradient vertical				
+window.title.focus.color:				#3A3A3A
+window.title.focus.colorTo:				#000000		
+window.title.unfocus:					flat gradient vertical			
+window.title.unfocus.color:				#3A3A3A				
+window.title.unfocus.colorTo:		    #000000
+window.font:                            liberation mono-8		
+window.label.focus:					    flat gradient vertical
+window.label.focus.color:				#1b76a1			
+window.label.focus.colorTo:				#1b76a1			
+window.label.focus.textColor:			#000000 
+window.label.unfocus:					flat gradient vertical
+window.label.unfocus.color:				#ffffff				
+window.label.unfocus.colorTo:			#DADADA		
+window.label.unfocus.textColor:			#757575
+window.button.focus:					ParentRelative
+window.button.focus.color:      	    #ffffff
+window.button.focus.colorTo:      		#ffffff
+window.button.focus.picColor:			#BFBFBF
+window.button.unfocus:					ParentRelative				
+window.button.unfocus.Color:						
+window.button.unfocus.ColorTo:						
+window.button.unfocus.picColor:			#BFBFBF
+window.button.pressed:					Flat			
+window.button.pressed.color:			#4C4C4C
+window.button.pressed.colorTo:			#545454			
+window.button.pressed.picColor:			#000000
+window.frame.focusColor:                #f7f302
+window.handle.focus:					flat				
+window.handle.focus.color:				#4C4C4C			
+window.handle.focus.colorTo:						
+window.handle.unfocus:					flat				
+window.handle.unfocus.color:			#BFBFBF		
+window.handle.unfocus.colorTo:					
+window.handleWidth:					    2
+window.grip.focus:					    flat				
+window.grip.focus.color:				#074cfa						
+window.grip.focus.colorTo:								
+window.grip.unfocus:					flat				
+window.grip.unfocus.color:				#4C4C4C				
+window.grip.unfocus.colorTo:								

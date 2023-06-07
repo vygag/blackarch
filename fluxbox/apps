@@ -1,0 +1,136 @@
+[app] (name=lxterminal)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=xfce4-terminal)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=gnote)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=geany)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=thunar)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=doublecmd)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=cherrytree)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=Navigator) (class=firefox) (role=browser)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=chromium) (class=Chromium) (role=browser)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=Mail) (class=thunderbird) (role=3pane)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=transmission-gtk)
+[Position] (CENTER) {0 0}
+[end]
+
+[app] (name=gpicview)
+[Position] (CENTER) {0 0}
+[end]
+
+[app] (name=evince)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=xchm)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=org.pwmt.zathura) (class=Zathura)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=abiword)
+[Maximized] {yes}
+[end]
+
+[app] (name=gnumeric)
+[Maximized] {yes}
+[end]
+
+[app] (name=mtpaint)
+[Maximized] {yes}
+[end]
+
+[app] (name=xarchiver)
+[Position] (CENTER) {0 0}
+[end]
+
+[app] (name=lxappearance)
+[Position] (CENTER) {0 0}
+[end]
+
+[app] (name=gl) (class=mpv)
+[Position] (CENTER) {0 0}
+[end]
+
+[app] (name=galculator)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=doublecmd.exe) (class=doublecmd.exe)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=balabolka.exe) (class=balabolka.exe)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=Demagog.exe) (class=Demagog.exe)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=aimpate.exe) (class=aimpate.exe)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=routerscan.exe) (class=routerscan.exe)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=myhomelib.exe) (class=myhomelib.exe)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=gp.exe) (class=gp.exe)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]

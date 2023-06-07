@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# fluxbox startup-script:
+#
+# Индикатор network manager
+#nm-applet &
+# Буфер обмена
+#parcellite &
+# Индикатор батареи
+#cbatticon -l 15 -r 9 &
+# Не отключать монитор
+xset s off
+xset -dpms
+# Установка раскладки клавиатуры
+setxkbmap -layout 'us,ru' -option 'grp:menu_toggle,lv3_ralt_switch'
+# Индикатор звука ALSA
+#volumeicon &
+# Отключаем монитор ноутбука xrandr
+#xrandr --output LVDS --off
+# Яркость экрана xrandr 2 монитор
+#xrandr --output VGA-0 --brightness 0.3
+# Яркость экрана xrandr
+xrandr --output LVDS1 --brightness 0.4
+# Яркость экрана xbacklight
+#xbacklight -set 1
+
+exec fluxbox
