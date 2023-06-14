@@ -64,6 +64,8 @@ https://archlinux.org/mirrors/status/
 Successfully Syncing Mirrors
 wget http://archlinux.thaller.ws/iso/2023.06.01/archlinux-2023.06.01-x86_64.iso
 
+wget https://geo.mirror.pkgbuild.com/iso/latest/arch/pkglist.x86_64.txt
+
 sha256sum archlinux-2023.06.01-x86_64.iso
 
 // С помощью dd удалите таблицу разделов
@@ -74,12 +76,16 @@ sudo dd if=archlinux-2023.06.01-x86_64.iso of=/dev/sdb
 ------------------------------------------------ПОДГОТОВКА-----------------------------------------------
 
 // Записать в тетрадь
-mount -t ntfs3 --mkdir /dev/sda5 /root/data
+lsblk
+mount --mkdir /dev/sda5 /root/data
+mount -t ntfs3 vfat
 gpm -m /dev/input/mice -t exps2
-f2=nano f3=mc
+f2=nano f3=mc login: root
 loadkeys ru
-setfont cyr-sun16
+setfont UniCyr_8x16  ter-c16n
 nano /root/data/blackarch/blackarch.txt
+umount /dev/sda5
+systemctl poweroff
 
 ---------------------------------------------------------------------------------------------------------
 
@@ -87,7 +93,7 @@ nano /root/data/blackarch/blackarch.txt
 systemctl poweroff
 Alt+F1-F6
 login: root
-gpm nano mc lynx kmod reflector terminus-font
+tmux gpm nano vim mc lynx curl nmap kmod reflector terminus-font archinstall bash bc clonezilla espeakup lame mpg123 
 
 // Проверить состояние батареи
 alias bat='cat /sys/class/power_supply/BAT1/capacity'
@@ -100,9 +106,14 @@ alias wifi='iw dev wlan0 link'
 // установить время
 date -s 09:17
 
+// Отключить синхронизацию системных часов
+timedatectl
+systemctl stop systemd-timesyncd.service
+timedatectl
+
 // русификация
 loadkeys ru
-setfont cyr-sun16
+setfont UniCyr_8x16
 
 -----------------------------------------------РАЗМЕТКА ДИСКОВ-------------------------------------------
 
@@ -150,7 +161,6 @@ mount /dev/sda3 /mnt
 ip link
 ping archlinux.org
 
-
 ----------------------------------------------------WI-FI------------------------------------------------
 
 // проверки имени вашего сетевого устройства
@@ -160,14 +170,9 @@ iw dev
 // подключитесь к сети wi-fi iwctl
 iwctl station wlan0 get-networks                        список обнаруженных сетей
 iwctl -P пароль station wlan0 connect точка
-dhclient wlan0
-iwctl station wlan0 show                                состояние подключения
-iwctl station wlan0 disconnect
-
-iwctl station wlan0 get-networks
 iwctl -P пароль station wlan0 connect 'точка с пробелом'
-dhclient wlan0
-iwctl station wlan0 show
+// dhclient wlan0                                       должно быть автоматом
+iwctl station wlan0 show                                состояние подключения
 iwctl station wlan0 disconnect
 
 iwctl
@@ -182,10 +187,11 @@ Ctrl+d
 
 // подключитесь к сети wi-fi wpa_supplicant
 wpa_passphrase точка пароль > точка.conf
+wpa_passphrase "название точки" пароль > точка.conf
 nano точка.conf
 ctrl_interface=/run/wpa_supplicant
 wpa_supplicant -B -i wlan0 -c точка.conf
-dhclient wlan0
+// dhclient wlan0                                                  должно быть автоматом
 wpa_cli disconnect
 
 // Проверка точки
@@ -282,9 +288,6 @@ pacman -S tesseract-data-eng tesseract-data-rus tesseract
 // софт blackarch
 pacman -S aircrack-ng wireshark-cli wireshark-qt pixiewps hcxdumptool hcxtools reaver nmap capnet-assist bettercap routersploit traceroute john
 hashcat
-
-// софт blackarch
-pacman -S aircrack-ng wireshark-cli pixiewps hcxdumptool hcxtools reaver nmap capnet-assist bettercap routersploit traceroute
 
 // [blackarch] репозиторий
 maskprocessor pydictor crunch 
@@ -394,8 +397,6 @@ nano /etc/locale.conf
 LANG=ru_RU.UTF-8
 nano /etc/vconsole.conf
 KEYMAP=ru
-FONT=cyr-sun16
-или
 FONT=UniCyr_8x16
 // Обновим текущую локаль системы
 locale-gen
@@ -424,7 +425,7 @@ groups vyga
 -m создавать домашний каталог пользователя в home
 -G Список дополнительных групп
 -s командная оболочка для пользователя
--U Создайте группу с тем же именем, что и у пользователя и добавьте
+-U создайть группу с тем же именем что и у пользователя и добавить
 
 ---------------------------------------------------------------------------------------------------------
 
