@@ -213,9 +213,26 @@ Successfully Syncing Mirrors
 5 наиболее подходящих зеркал
 nano /etc/pacman.d/mirrorlist
 
+-----------------------------------------------REFLECTOR---------------------------------------------------------
+
 lynx https://wiki.archlinux.org/title/Reflector_(Русский)
 pacman -S reflector
-reflector --verbose -l 5 -p https --sort rate --save /etc/pacman.d/mirrorlist
+
+reflector -l 6 -p https,http --sort rate --save /etc/pacman.d/mirrorlist
+
+-l 6, --latest 6      Ограничьте список n самыми последними синхронизированными серверами.
+
+-p <protocol>, --protocol <protocol> 
+
+--sort {age,rate,country,score,delay}  --sort rate      --sort age,rate,score,delay
+Отсортируйте список зеркал.
+age,         возраст       последняя синхронизация с сервером
+rate,        скорость      скорость загрузки
+country,     страна        название страны, либо в алфавитном порядке или в порядке, заданном параметром --country
+score,       оценка        оценка зеркального статуса
+delay        задержка      задержка зеркального статуса
+
+----------------------------------------------------------------------------------------------------------------------
 
 // Если устарели ключи
 pacman -S archlinux-keyring
@@ -559,7 +576,7 @@ chown -R vyga:vyga /home/vyga/.config
 
 # Установка sdcv stardict
 mkdir -p /usr/share/stardict/dic
-cp -r /root/hdd/archhome/magus /usr/share/stardict/dic
+cp -r /root/hdd/archome/magus /usr/share/stardict/dic
 
 tts
 аудиокниги
