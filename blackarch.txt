@@ -1,0 +1,755 @@
+Установка Black Arch
+
+---------------------------------------------------ХАРД-------------------------------------
+
+sudo pacman -S dmidecode
+sudo dmidecode -s system-serial-number
+sudo dmidecode -s system-manufacturer
+sudo dmidecode -s system-product-name
+sudo dmidecode -t 2
+
+cat /proc/cpuinfo
+lscpu
+uname -m
+htop
+
+cat /proc/meminfo
+free -h
+lsmem
+swapon -s
+
+uname -r
+cat /proc/cmdline
+
+lspci
+lspci -vvvn
+lsusb
+lsusb -vt
+sudo airmon-ng
+
+iw list
+
+cat /proc/asound/cards
+lsmod
+ls /sys/class/net
+
+lshw
+
+// Сенсоры
+sudo sensors-detect
+sensors
+sensors | grep Core
+
+-----------------------------------------------------------------------------------------------------------
+
+Проц  Intel(R) Atom(TM) CPU N570 1.66GHz x86_64 Ядер 3
+ОЗУ 2G
+VGA  Intel Corporation Atom Processor D4xx/D5xx/N4xx/N5xx Integrated Graphics Controller (rev 02)
+Intel Corporation NM10/ICH7 Family High Definition Audio Controller (rev 02)
+Network controller: Intel Corporation Centrino Wireless-N 130 (rev 34)
+Ethernet controller: Realtek Semiconductor Co., Ltd. RTL810xE PCI Express Fast Ethernet controller (rev 05)
+HKJ793KBB00089   system-serial-number
+SAMSUNG ELECTRONICS CO., LTD
+NC210/NC110
+
+----------------------------------------------ЗАПИСЬ ФЛЕШКИ----------------------------------------------
+
+https://archlinux.org/download/
+Current Release: 2024.03.01
+Included Kernel: 6.7.6
+ISO Size: 942.3 MB
+
+SHA256: 0062e39e57d492672712467fdb14371fca4e3a5c57fed06791be95da8d4a60e3
+
+// Проверить статус зеркал
+https://archlinux.org/mirrors/status/
+Successfully Syncing Mirrors
+
+wget https://mirror.sunred.org/archlinux/iso/2024.03.01/archlinux-2024.03.01-x86_64.iso
+wget https://mirror.sunred.org/archlinux/iso/2024.03.01/arch/pkglist.x86_64.txt 
+
+sha256sum archlinux-2024.03.01-x86_64.iso
+
+// С помощью dd удалите таблицу разделов
+sudo dd if=/dev/zero of=/dev/sdc bs=1M count=1
+// записать образ на флэшку
+sudo dd if=archlinux-2024.03.01-x86_64.iso of=/dev/sdc
+
+------------------------------------------------ПОДГОТОВКА-----------------------------------------------
+
+// Записать в тетрадь
+lsblk
+mount --mkdir /dev/sda5 /root/data
+mount -t ntfs3 vfat
+gpm -m /dev/input/mice -t exps2
+f2=nano f3=mc login: root
+loadkeys ru
+setfont ter-c16n
+nano /root/data/blackarch/blackarch.txt
+umount /dev/sda5
+systemctl poweroff
+shutdown -h now
+
+---------------------------------------------------------------------------------------------------------
+
+// Управление
+systemctl poweroff
+Alt+F1-F6
+login: root
+tmux gpm nano vim mc lynx curl nmap kmod reflector terminus-font archinstall bash bc clonezilla espeakup lame mpg123 
+
+// Как проверить состояние батареи
+alias bat='cat /sys/class/power_supply/BAT1/capacity'
+
+// Уровень Wi-Fi сигнала
+alias wifi='iw dev wlan0 link'
+
+---------------------------------------------------------------------------------------------------------
+
+// Русификация
+loadkeys ru
+setfont ter-c16n
+
+-----------------------------------------------РАЗМЕТКА ДИСКОВ-------------------------------------------
+
+lsblk
+fdisk -l
+cfdisk /dev/sda
+Загруз./Bootable     Сделать раздел загрузочным
+Удалить/Delete       Удалить раздел
+Resize
+Выход/Quit  
+Тип/Type             Тип раздела
+Справка/Help
+Запись/Write         Сохранить изменения
+Дамп/Dump
+Новый/New            Создать новый раздел
+
+Delete - New - Размер раздела 5G - Основной
+Тип - 82 Linux swap
+Тип - 83 Linux
+
+1. 4G      82 Linux swap                           sda2
+2. 35G     83 Linux /     Загруз./Bootable         sda3
+3. 420,8   83 Linux data                           sda5
+
+Запись - yes
+
+--------------------------------------------------УСТАНОВКА----------------------------------------------
+
+lsblk
+// Форматирование разделов
+fdisk -l
+// sda2 swap
+// sda3 /
+// форматирования раздела подкачки
+mkswap /dev/sda2
+// форматирования раздела корень
+mkfs.ext4 /dev/sda3
+
+mkfs.ext4 -c /dev/sda3
+mkfs.ext4 -L метка -c /dev/sda3
+-c      проверить устройство на битые сектора перед созданием
+-cc     для более долгой но тщательной проверки
+-L      задать метку для раздела с этой файловой системой
+
+// Монтирование разделов
+swapon /dev/sda2
+mount /dev/sda3 /mnt
+
+--------------------------------------------------USB-МОДЕМ----------------------------------------------
+
+Настройки - Сеть и интернет - Точка доступа и модем - USB-модем
+ip link
+ping archlinux.org
+
+----------------------------------------------------WI-FI------------------------------------------------
+
+// проверки имени вашего сетевого устройства
+iw dev
+> interface wlan0
+
+// подключитесь к сети wi-fi iwctl
+iwctl station wlan0 get-networks                             список обнаруженных сетей
+iwctl -P пароль station wlan0 connect точка                  подключится к точке
+iwctl -P пароль station wlan0 connect 'точка с пробелом'     подключится к точке с пробелом
+// dhclient wlan0                                            должно быть автоматом
+iwctl station wlan0 show                                     состояние подключения
+iwctl station wlan0 disconnect                               отключиться от сети
+
+iwctl
+[iwd]#
+Tab
+Ctrl+d
+
+[iwd]# station wlan0 get-networks                            список обнаруженных сетей
+[iwd]# station wlan0 connect точка                           подключится к точке
+[iwd]# station wlan0 show                                    состояние подключения
+[iwd]# station wlan0 disconnect                              отключиться от сети
+
+----------------------------------------------------------------------------------------------------------
+
+// подключитесь к сети wi-fi wpa_supplicant
+wpa_passphrase точка пароль > точка.conf                     создать подключение
+wpa_passphrase "точка с пробелом" пароль > точка.conf        создать подключение с пробелом
+nano точка.conf
+ctrl_interface=/run/wpa_supplicant
+wpa_supplicant -B -i wlan0 -c точка.conf                     подключится к точке
+// dhclient wlan0                                            должно быть автоматом
+wpa_cli disconnect                                           отключиться от сети
+
+// Проверка точки
+ping archlinux.org
+
+------------------------------------------------СОФТ-----------------------------------------------------
+
+// Выбор зеркал для загрузки
+lynx https://wiki.archlinux.org/title/Mirrors_(Русский)
+nano /etc/pacman.d/mirrorlist
+nano /etc/pacman.d/mirrorlist.pacnew
+
+// Наиболее свежий список зеркал
+lynx https://archlinux.org/mirrorlist/
+// Проверить статус зеркал
+lynx https://archlinux.org/mirrors/status/
+Successfully Syncing Mirrors
+
+5 наиболее подходящих зеркал
+nano /etc/pacman.d/mirrorlist
+
+-----------------------------------------------REFLECTOR---------------------------------------------------------
+
+lynx https://wiki.archlinux.org/title/Reflector_(Русский)
+pacman -S reflector
+
+reflector -p https,http -l 6 --sort rate --save /etc/pacman.d/mirrorlist
+
+-l 6, --latest 6      Ограничьте список n самыми последними синхронизированными серверами.
+
+-p <protocol>, --protocol <protocol> 
+
+--sort {age,rate,country,score,delay}  --sort rate      --sort age,rate,score,delay
+Отсортируйте список зеркал.
+age,         возраст       последняя синхронизация с сервером
+rate,        скорость      скорость загрузки
+country,     страна        название страны, либо в алфавитном порядке или в порядке, заданном параметром --country
+score,       оценка        оценка зеркального статуса
+delay        задержка      задержка зеркального статуса
+
+----------------------------------------------------------------------------------------------------------------------
+
+// Установка базовой системы Arch
+// Пакеты для установки
+pacstrap -i /mnt base base-devel linux linux-headers intel-ucode mesa xf86-video-intel linux-firmware nano
+-i Запрашивайте подтверждение пакета, когда это необходимо (запускайте в интерактивном режиме).
+-K Инициализируйте пустую связку ключей pacman в целевом объекте
+
+----------------------------------------------------------------------------------------------------------------------
+
+// Если устарели ключи
+pacman -S archlinux-keyring
+
+// Отключение проверки подписи
+nano /etc/pacman.conf
+[options]
+SigLevel = Never
+закомментировать все параметры SigLevel в настройках репозиториев
+
+---------------------------------------------СОЗДАЁМ ФАЙЛ FSTAB-------------------------------------------------------
+
+// Создаём файл fstab genfstab
+genfstab -U /mnt >> /mnt/etc/fstab
+
+// Создаём файл fstab blkid
+blkid /dev/sda2
+blkid /dev/sda3
+
+nano /mnt/etc/fstab
+# /dev/sda3
+UUID=6659d946-f06b-4d42-9829-b3af4e7b8dec       /               ext4            rw,relatime     0 1
+
+# /dev/sda2
+UUID=d32af469-e847-4395-9b26-4713143721b0       none            swap            defaults        0 0
+
+------------------------------------------------ЧЕРУТИМСЯ--------------------------------------------------
+
+arch-chroot /mnt
+
+-----------------------------------------------------------------------------------------------------------
+
+// Включение репозитория multilib
+nano /etc/pacman.conf
+Color
+[multilib]
+Include = /etc/pacman.d/mirrorlist
+pacman -Sy
+
+// Wi-Fi
+pacman -S iw networkmanager
+
+// Утилиты
+pacman -S grub os-prober udisks2 gpm ntfs-3g alsa-utils bash-completion
+pacman -S gvfs gvfs-mtp pkgfile man-db man-pages reflector
+pulseaudio pulseaudio-utils  ?pamixer?
+
+// Консольный софт
+pacman -S mc htop p7zip mediainfo scrot sdcv bc fdupes
+pacman -S git curl wget yt-dlp links transmission-cli
+pacman -S lame ffmpeg mpv imagemagick id3v2
+pacman -S rhvoice rhvoice-language-russian rhvoice-voice-anna rhvoice-voice-aleksandr-hq
+
+// Ставим иксы
+// Xorg
+pacman -S xorg-server xorg-xset xorg-xrandr xorg-setxkbmap
+// Иксы
+pacman -S lxdm fluxbox cbatticon lxappearance network-manager-applet
+
+// Иксовый софт
+pacman -S xfce4-terminal geany thunar thunar-archive-plugin xarchiver zenity gpicview
+
+// Office
+pacman -S gnote evince xchm cherrytree galculator abiword gnumeric homebank mtpaint gimp
+pacman -S zathura zathura-pdf-mupdf zathura-djvu
+pacman -S libreoffice-still libreoffice-still-ru
+
+// Шрифты
+pacman -S ttf-liberation ttf-dejavu cantarell-fonts adobe-source-sans-fonts
+
+// Inet
+pacman -S firefox firefox-i18n-ru transmission-gtk thunderbird thunderbird-i18n-ru chromium gnome-maps
+
+// Ставим wine
+pacman -S wine-staging wine-gecko wine-mono
+
+// Игры
+pacman -S gnome-chess gnuchess
+
+// софт blackarch
+pacman -S aircrack-ng wireshark-cli pixiewps reaver bully john xterm routersploit
+pacman -S traceroute nmap capnet-assist bettercap hcxdumptool hcxtools wireshark-qt
+
+// [blackarch] репозиторий
+maskprocessor pydictor crunch 
+
+------------------------------------ПОДКЛЮЧИТЬ РЕПОЗИТОРИЙ BLACKARCH----------------------------------------
+
+lynx https://blackarch.org/downloads.html
+// Скопировать хеш sha1sum
+5ea40d49ecd14c2e024deecf90605426db97ea0c
+// Загрузить strap.sh
+curl -O https://blackarch.org/strap.sh
+// Проверить хеш sha1sum
+sha1sum strap.sh
+// Запустить strap.sh
+bash strap.sh
+chmod 710 strap.sh
+./strap.sh
+
+// Чтобы вывести список всех доступных инструментов запустите:
+pacman -Sgg | grep blackarch | cut -d ' ' -f2 | sort -u
+// Чтобы установить категорию инструментов запустите:
+pacman -S blackarch-<категория>
+blackarch-wireless    Пакеты которые работают с беспроводными сетями
+
+-------------------------------------------------------------------------------------------------------------
+
+// Интерес
+eyed3
+rtorrent
+lshw
+geary balsa evolution claws-mail
+parcellite
+cbatticon
+volumeicon
+aria2c
+picom xcompmgr
+tint2
+polkit-gnome
+neofetch
+i3status
+lightdm slim
+doublecmd-gtk2
+gparted
+catfish
+gtkhash
+qmapshack marble-maps
+tesseract-data-eng tesseract-data-rus tesseract
+gnome-disk-utility
+quodlibet exfalso
+dmenu rofi xfce4-appfinder
+xfce4-clipman-plugin
+xfce4-battery-plugin
+xfce4-screenshooter
+xfce4-panel
+xfce4-power-manager
+xfce4-notifyd
+xfce4-settings
+xfconf-query
+xorg-xbacklight
+xorg-xinit
+file-roller
+gnome-dictionary xfce4-dict stardict dictd
+gsimplecal
+samba
+vsftpd
+audacity
+calibre
+fbreader
+onboard
+btop
+foliate
+conky
+stockfish
+qt5ct
+--------------------------------------------------------------------------------------------------------
+
+// если не создан /boot/initramfs-5.3.7-301.fc31.x86_64.img
+// Перегенерируйте initramfs
+mkinitcpio -p linux
+
+-----------------------------------------------------НАСТРОЙКА-------------------------------------------
+
+// Часовой пояс
+ln -sf /usr/share/zoneinfo/Asia/Yekaterinburg /etc/localtime
+
+// Установите аппаратные часы из системных часов сгенерировать /etc/adjtime
+hwclock --systohc
+
+----------------------------------------------------------------------------------------------------------
+
+// установить время
+date -s 09:17
+
+// Установка системных часов
+timedatectl
+// Отключить utc
+timedatectl set-local-rtc 1
+trace_clock=local
+
+timedatectl set-time "гггг-мм-дд чч:мм:сс"
+timedatectl set-time "2023-04-12 14:59:00"
+timedatectl set-time "20:43:36"
+
+// Аппаратные часы биос
+hwclock -r           отобразить часы реального времени
+hwclock -s           копирования часов биос в системные
+hwclock -W           копирования системных часов в биос
+hwclock -l           localtime
+hwclock --set --date="2011-01-25 08:55:01"
+
+------------------------------------------------ЛОКАЛИЗАЦИЯ---------------------------------------------
+
+// Установка раскладки клавиатуры
+// Добавим русскую локаль в систему установки
+nano /etc/locale.gen
+// Ищем там и раскомментируем строки:
+en_US.UTF-8 UTF-8
+ru_RU.UTF-8 UTF-8
+nano /etc/locale.conf
+LANG=ru_RU.UTF-8
+nano /etc/vconsole.conf
+KEYMAP=ru
+FONT=UniCyr_8x16
+// Обновим текущую локаль системы
+locale-gen
+
+---------------------------------------------------------------------------------------------------------
+
+// Настройка сети
+nano /etc/hostname
+arch
+
+nano /etc/hosts
+127.0.0.1       localhost
+:1              localhost
+127.0.1.1       arch
+
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+------------------------------------------НОВЫЙ ПОЛЬЗОВАТЕЛЬ---------------------------------------------
+
+// Добавим нового пользователя
+useradd -m -G wheel -s /bin/bash -U vyga
+groups vyga
+
+-m создавать домашний каталог пользователя в home
+-G Список дополнительных групп
+-s командная оболочка для пользователя
+-U Создайте группу с тем же именем, что и у пользователя и добавьте
+
+---------------------------------------------------------------------------------------------------------
+
+groupadd vyga                         создание новой группы
+usermod -aG доп_группы пользователь   Добавить в группы
+
+------------------------------------------------ПАРОЛЬ---------------------------------------------------
+
+// Задать пароль
+passwd vyga
+
+// visudo
+EDITOR=nano visudo
+// показывать звёздочки во время ввода пароля sudo
+Defaults    env_reset,pwfeedback
+// права root для группы wheel
+%wheel ALL=(ALL:ALL) ALL
+
+// увеличить длину сессии sudo на 20 минут
+Defaults    env_reset,timestamp_timeout=20
+// Чтобы отключить запрос пароля ПОЛЬЗОВАТЕЛЮ при вводе любой команды с sudo
+%wheel ALL=(ALL:ALL) NOPASSWD: ALL
+
+---------------------------------------------------------------------------------------------------------
+
+// Настройка приглашения Bash
+nano /home/vyga/.bashrc
+[[ $- != *i* ]] && return
+PS1='\[\e]0;\u@\h: \w\a\]\[\e[1;33m\]\u\[\e[0m\]@\[\e[1;35m\]\H\[\e[0m\]:\[\e[1;32m\]\w\[\e[0m\]\n\[\e[1;32m\]\$\[\e[0m\] '
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias mouse='gpm -m /dev/input/mice -t exps2'
+alias bat='cat /sys/class/power_supply/BAT1/capacity'
+alias wifi='iw dev wlp5s0 link'
+alias proz='sensors | grep core'
+alias mdata='udisksctl mount -b /dev/sda5'
+alias aimp='find -iname "*.mp3" -execdir id3v2 -D {} \;'
+alias nms='sudo systemctl start NetworkManager'
+alias nmu1='nmcli connection up "точка с пробелом"'
+alias nmd1='nmcli connection down "точка с пробелом"'
+alias nmu2='nmcli connection up точка'
+alias nmd2='nmcli connection down точка'
+alias cbatcritical='zenity --warning --text "Батарейка полностью разрядилась. Подключи питание" --width=300'
+
+// $PATH
+echo $PATH
+/usr/bin:
+/usr/local/bin:
+/usr/local/sbin:
+
+/usr/bin:/usr/local/bin:/usr/local/sbin
+export PATH=$PATH:/usr/bin:/usr/local/bin:/usr/local/sbin
+export EDITOR=nano
+
+-------------------------------------------------------------------------------------------------
+
+// Монтирование thunar в media
+mkdir /media
+nano /etc/udev/rules.d/99-udisks2.rules
+# UDISKS_FILESYSTEM_SHARED
+# ==1: mount filesystem to a shared directory (/media/VolumeName)
+# ==0: mount filesystem to a private directory (/run/media/$USER/VolumeName)
+# See udisks(8)
+ENV{ID_FS_USAGE}=="filesystem|other|crypto", ENV{UDISKS_FILESYSTEM_SHARED}="1"
+
+---------------------------------------------------------LXDM--------------------------------------------
+
+// Включить менеджер входа
+systemctl enable lxdm.service
+// Включить авто вход в систему
+nano /etc/lxdm/lxdm.conf
+autologin=vyga
+session=/usr/bin/startfluxbox
+gtk_theme=Minwaita-Vanilla-Dark
+#theme=Industrial
+
+// Графический конфигуратор
+lxdm-config
+// Темы
+/usr/share/lxdm/themes
+// Тема Arch-Dark
+wget https://www.dropbox.com/s/a8inrdfys3a71c1/lxdm-themes.tar.gz
+theme=Arch-Dark
+
+---------------------------------------------------------------------------------------------------------
+
+// Установка grub
+nano /etc/default/grub
+GRUB_CMDLINE_LINUX_DEFAULT=""
+GRUB_DISABLE_OS_PROBER=false
+grub-install /dev/sda
+grub-mkconfig -o /boot/grub/grub.cfg
+
+---------------------------------------------------------------------------------------------------------
+
+// настройка политики монтирования
+nano /usr/share/polkit-1/actions/org.freedesktop.UDisks2.policy
+<action id="org.freedesktop.udisks2.filesystem-mount-system">
+    <defaults>
+      <allow_any>yes</allow_any>
+      <allow_inactive>yes</allow_inactive>
+      <allow_active>yes</allow_active>
+    </defaults>
+    
+<action id="org.freedesktop.udisks2.power-off-drive-system">
+yes
+
+// Запустить Geany от суперпользователя
+nano /usr/share/polkit-1/actions/org.geany.policy
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC
+ "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
+<policyconfig>
+
+ <vendor>geany</vendor>
+ <vendor_url>https://geany.org/</vendor_url>
+ <icon_name>geany</icon_name>
+
+ <action id="org.geany">
+ 
+ <description>Run Geany as root</description>
+ <description xml:lang="ru">Запустить Geany от суперпользователя</description>
+ <message>Authentication is required to run Geany as root.</message>
+ <message xml:lang="ru">Требуется аутентификация для запуска Geany от суперпользователя</message>
+
+ <defaults>
+ <allow_any>yes</allow_any>
+ <allow_inactive>yes</allow_inactive>
+ <allow_active>yes</allow_active>
+ </defaults>
+ <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/geany</annotate>
+ <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+ </action>
+
+</policyconfig>
+
+nano /usr/share/polkit-1/actions/org.xfce.thunar.policy
+
+---------------------------------------------------------------------------------------------------------
+
+nano /etc/systemd/logind.conf
+IdleAction=ignore                  действие при бездействии системы
+HandlePowerKey=poweroff            действие после нажатия клавиши питания
+HandleLidSwitch=ignore             действие после закрытия крышки
+
+--------------------------------------------КАТАЛОГИ И ФАЙЛЫ НАСТРОЕК------------------------------------
+
+// Каталоги
+doc cfg inf man
+down
+foto
+hack caps-arh-crc dic inf
+torrent
+prg
+
+// Копирование файлов настройки и каталогов
+/home/vyga/.fluxbox
+
+// Сменить владельца каталога файла
+chown -R vyga:vyga /home/vyga/.fluxbox
+chown -R vyga:vyga /home/vyga/.config
+
+/home/vyga/.thunderbird/
+/home/vyga/.config/Thunar/uca.xml
+/home/vyga/.local/share/gnote
+/home/vyga/.config/geany/colorschemes/dark.conf
+/home/vyga/.config/geany/geany.conf
+/home/vyga/.config/geany/keybindings.conf
+/home/vyga/.config/geany/ui_toolbar.xml
+/home/vyga/.config/mc/ini
+/usr/share/stardict/dic/magus
+/home/vyga/.config/mpv/input.conf
+
+# Установка sdcv stardict
+mkdir -p /usr/share/stardict/dic
+cp -r /root/data/blackarch/magus /usr/share/stardict/dic
+
+tts
+аудиокниги
+видео
+документы
+загрузки
+инфа
+книги
+музыка
+разное
+софт
+фото
+
+---------------------------------------------------------------------------------------------------------
+
+// Темы GTK
+Minwaita-Vanilla-Dark
+Numix  papirus-icon-theme
+Шрифты Liberation mono, system-ui, sans, source code pro medium
+gtk2 gtk3 gtk4
+// Тёмная тема для Gtk4
+GTK_THEME=Minwaita-Vanilla-Dark:dark transmission-gtk
+
+git clone https://github.com/numixproject/numix-icon-theme
+
+-----------------------------------------------------ЗАВЕРШЕНИЕ------------------------------------------
+
+// Завершение установки
+exit
+umount -R /mnt
+umount /dev/sda3
+systemctl poweroff
+
+-----------------------------------------------------gtk-2.0---------------------------------------------
+nano /usr/share/gtk-2.0/gtkrc
+gtk-icon-theme-name = "Numix"
+gtk-theme-name = "Minwaita-Vanilla-Dark"
+gtk-font-name = "System-ui 10"
+
+GTK2_RC_FILES=/usr/share/themes/Raleigh/gtk-2.0/gtkrc
+
+/home/vyga/.gtkrc-2.0
+include "/home/vyga/.gtkrc-2.0.mine"
+gtk-theme-name="Minwaita-Vanilla-Dark"
+gtk-icon-theme-name="Numix"
+gtk-font-name="System-ui 10"
+gtk-cursor-theme-name="Adwaita"
+gtk-cursor-theme-size=0
+gtk-toolbar-style=GTK_TOOLBAR_BOTH
+gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
+gtk-button-images=1
+gtk-menu-images=1
+gtk-enable-event-sounds=1
+gtk-enable-input-feedback-sounds=1
+gtk-xft-antialias=1
+gtk-xft-hinting=1
+gtk-xft-hintstyle="hintfull"
+
+/home/vyga/.config/gtk-2.0/gtkfilechooser.ini
+[Filechooser Settings]
+LocationMode=path-bar
+ShowHidden=false
+ShowSizeColumn=true
+GeometryX=570
+GeometryY=247
+GeometryWidth=780
+GeometryHeight=585
+SortColumn=name
+SortOrder=ascending
+StartupMode=recent
+
+----------------------------------------------------gtk-3.0--------------------------------------------------
+nano /usr/share/gtk-3.0/
+/home/vyga/.config/gtk-3.0/settings.ini
+[Settings]
+gtk-theme-name=Minwaita-Vanilla-Dark
+gtk-icon-theme-name=Numix
+gtk-font-name=System-ui 10
+gtk-cursor-theme-name=Adwaita
+gtk-cursor-theme-size=0
+gtk-toolbar-style=GTK_TOOLBAR_BOTH
+gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
+gtk-button-images=1
+gtk-menu-images=1
+gtk-enable-event-sounds=1
+gtk-enable-input-feedback-sounds=1
+gtk-xft-antialias=1
+gtk-xft-hinting=1
+gtk-xft-hintstyle=hintfull
+
+-----------------------------------------------------gtk-4.0--------------------------------------------------
+nano /usr/share/gtk-4.0/
+/home/vyga/.config/gtk-4.0/settings.ini
+[Settings]
+gtk-icon-theme-name = Numix
+gtk-theme-name = Minwaita-Vanilla-Dark
+gtk-font-name = System-ui 10
+gtk-hint-font-metrics=1

@@ -1,0 +1,191 @@
+[app] (name=fbrun) (class=FbRun)
+[Position] (Center) {0 0}
+[end]
+
+[app] (name=nm-applet)
+[Position] (Center) {0 0}
+[end]
+
+[app] (name=nm-connection-editor)
+[Position] (Center) {0 0}
+[end]
+
+[app] (name=zenity)
+[Position] (Center) {0 0}
+[end]
+
+[app] (name=xfce4-terminal)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=gnote)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=thunar)
+[Deco] {BORDER}
+[end]
+
+[app] (name=geany)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=homebank)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=cherrytree)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=Navigator) (class=firefox) (role=browser)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=Places) (class=firefox) (role=Organizer)
+[Maximized] {yes}
+[end]
+
+[app] (name=chromium) (class=Chromium) (role=browser)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app](name=Navigator)(class=Pale moon)(role=browser)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=Places) (class=Pale moon) (role=Organizer)
+[Maximized] {yes}
+[end]
+
+[app] (name=Mail) (class=thunderbird) (role=3pane)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=transmission-gtk)
+[Position] (CENTER) {0 0}
+[end]
+
+[app] (name=org.gnome.Maps) (class=org.gnome.Maps)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=Telegram) (class=TelegramDesktop)
+[Maximized] {yes}
+[end]
+
+[app] (name=wireshark)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=gpicview)
+[Position] (Center) {0 0}
+[end]
+
+[app] (name=evince)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=xchm)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=org.pwmt.zathura) (class=Zathura)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=abiword)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=gnumeric)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=mtpaint)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=gimp)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=xarchiver)
+[Position] (CENTER) {0 0}
+[end]
+
+[app] (name=lxappearance)
+[Position] (CENTER) {0 0}
+[end]
+
+[app] (name=soffice) (class=Soffice)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=gl) (class=mpv)
+[Position] (CENTER) {0 0}
+[end]
+
+[app] (name=galculator)
+[Position] (CENTER) {0 0}
+[end]
+
+[app] (name=gnome-chess)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=winecfg.exe) (class=winecfg.exe)
+[Maximized] {yes}
+[end]
+
+[app] (name=doublecmd.exe) (class=doublecmd.exe)
+[Maximized] {yes}
+[end]
+
+[app] (name=balabolka.exe) (class=balabolka.exe)
+[Maximized] {yes}
+[end]
+
+[app] (name=demagog.exe) (class=demagog.exe)
+[Maximized] {yes}
+[end]
+
+[app] (name=aimpate.exe) (class=aimpate.exe)
+[Maximized] {yes}
+[end]
+
+[app] (name=routerscan.exe) (class=routerscan.exe)
+[Maximized] {yes}
+[end]
+
+[app] (name=myhomelib.exe) (class=myhomelib.exe)
+[Maximized] {yes}
+[end]
+
+[app] (name=gp.exe) (class=gp.exe)
+[Maximized] {yes}
+[end]
+
+[app] (name=akelpad.exe) (class=akelpad.exe)
+[Maximized] {yes}
+[end]

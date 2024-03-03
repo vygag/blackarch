@@ -1,0 +1,100 @@
+## keys ##
+
+# Нажмите на рабочий стол чтобы открыть меню
+OnDesktop Mouse1 :HideMenus
+OnDesktop Mouse2 :WorkspaceMenu
+OnDesktop Mouse3 :RootMenu
+
+# Начните перетаскивать чтобы изменить размер окна как если бы вы захватили окно в указанном углу
+OnLeftGrip Move1 :StartResizing bottomleft
+OnRightGrip Move1 :StartResizing bottomright
+
+# Дважды щелкните на строке заголовка чтобы затенить
+OnTitlebar Double Mouse1 :Shade
+
+# Средний щелчок по строке заголовка чтобы переключить окна таб
+OnTitlebar Mouse2 :Lower
+
+# Щелкните правой кнопкой мыши на строке заголовка чтобы открыть меню опций
+OnTitlebar Mouse3 :WindowMenu
+
+# Щелкните левой кнопкой мыши на строке заголовка чтобы переместить окно
+OnTitlebar Move1 :StartMoving
+
+# Активирует окно под мышью
+OnTitlebar Mouse1 :Focus
+
+# Управление звуком Alsa
+XF86AudioRaiseVolume :ExecCommand amixer set Master 2%+
+XF86AudioLowerVolume :ExecCommand amixer set Master 2%-
+
+# Управление яркостью экрана xbacklight
+#XF86MonBrightnessUp :ExecCommand xbacklight -inc 1
+#XF86MonBrightnessDown :ExecCommand xbacklight -dec 1
+
+# Управление яркостью экрана brightnessctl
+#XF86MonBrightnessUp :ExecCommand brightnessctl set +1
+#XF86MonBrightnessDown :ExecCommand brightnessctl set -1
+
+# Сделать скриншот Print scrot
+Print :Exec scrot -u /home/vyga/foto/scr.png
+Shift Print :Exec scrot /home/vyga/foto/screen.png
+Control Print :Exec scrot -s /home/vyga/foto/scrn.png
+
+# Свернуть окно
+Mod4 x :Minimize
+
+# Fullscreen развернуть на весь экран
+Mod4 a :Fullscreen
+
+# Развернуть окно
+Mod4 s :Maximize
+
+# Закрыть текущее окно
+Mod4 q :Close
+
+# Переход к следуюшему ( предыдущему ) окну
+Mod1 Tab :NextWindow
+
+# Переместить плавающее окно
+OnWindow Mod1 Mouse1 :StartMoving
+
+# Вызов меню
+Mod4 space :RootMenu
+
+# Открыть терминал 
+Mod4 z :Exec xfce4-terminal
+
+# Запуск программ
+Mod4 1 :Exec geany
+Mod4 2 :Exec GTK_THEME=Minwaita-Vanilla-Dark:dark gnote
+Mod4 3 :Exec thunar
+Mod4 4 :Exec firefox
+Mod4 5 :Exec GTK_THEME=Minwaita-Vanilla-Dark:dark transmission-gtk
+Mod4 6 :Exec thunderbird
+Mod4 7 :Exec /home/vyga/prg/Telegram/Telegram
+Mod4 8 :Exec chromium
+Mod4 9 :Exec cherrytree
+Mod4 0 :Exec mtpaint
+Mod4 p :Exec /home/vyga/prg/palemoon/palemoon
+Mod4 h :Exec homebank
+
+Mod4 c :Exec zenity --calendar
+Mod4 k :Exec galculator
+Mod4 n :Exec nm-applet
+Mod4 b :Exec cbatticon -l 6 -r 4 -c "cbatcritical"
+
+# Выход
+Mod4 Delete :Exit
+# Ждущий режим
+Mod4 Escape :Exec systemctl suspend
+
+# Тайлинг
+# Веретикальное разделение
+Mod1 1 :MacroCmd {ResizeTo 45% 100%} {MoveTo 00 00 Left}
+Mod1 2 :MacroCmd {ResizeTo 45% 100%} {MoveTo 00 00 Right}
+# Горизонтальное разделение
+Mod1 3 :MacroCmd {ResizeTo 100% 50%} {MoveTo 00 00 Top}
+Mod1 4 :MacroCmd {ResizeTo 100% 50%} {MoveTo 00 00 Bottom}
+# Центр
+Mod4 d :MoveTo 00 00 Center
