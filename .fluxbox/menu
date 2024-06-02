@@ -4,7 +4,7 @@
 [encoding] {UTF-8}
      [submenu] (Приложения) </home/vyga/.fluxbox/icon/applications.png>
     [exec] (Telegram) {/home/vyga/prg/Telegram/Telegram} </home/vyga/.fluxbox/icon/telegram.png>
-    [exec] (Chromium) {chromium} </home/vyga/.fluxbox/icon/chromium.png>
+    [exec] (Firefox) {firefox} </home/vyga/.fluxbox/icon/firefox.png>
 	[exec] (Tor) {/home/vyga/prg/tor-browser/start-tor-browser.desktop} </home/vyga/.fluxbox/icon/tor.png>
 	[exec] (Карта) {GTK_THEME=Minwaita-Vanilla-Dark:dark gnome-maps} </home/vyga/.fluxbox/icon/maps.png>
 	[exec] (Palemoon) {/home/vyga/prg/palemoon/palemoon} </home/vyga/.fluxbox/icon/palemoon.png>
@@ -43,14 +43,14 @@
      [end]
     [exec] (Выполнить) {fbrun} </home/vyga/.fluxbox/icon/gtkhash.png>
      [separator]
-	[exec] (Календарь) {zenity --calendar} </home/vyga/.fluxbox/icon/calendar.png>
+	[exec] (Календарь) {GTK_THEME=Minwaita-Vanilla-Dark:dark zenity --calendar} </home/vyga/.fluxbox/icon/calendar.png>
 	[exec] (Калькулятор) {galculator} </home/vyga/.fluxbox/icon/calc.png>
      [separator]
 	[exec] (Терминал) {xfce4-terminal} </home/vyga/.fluxbox/icon/terminal.png>
 	[exec] (Geany) {geany} </home/vyga/.fluxbox/icon/geany.png>
 	[exec] (Gnote) {GTK_THEME=Minwaita-Vanilla-Dark:dark gnote} </home/vyga/.fluxbox/icon/gnote.png>
 	[exec] (Thunar) {thunar} </home/vyga/.fluxbox/icon/thunar.png>
-	[exec] (Firefox) {firefox} </home/vyga/.fluxbox/icon/firefox.png>
+	[exec] (Chromium) {chromium} </home/vyga/.fluxbox/icon/chromium.png>
 	[exec] (Торрент) {GTK_THEME=Minwaita-Vanilla-Dark:dark transmission-gtk} </home/vyga/.fluxbox/icon/transmission.png>
 	[exec] (Почта) {thunderbird} </home/vyga/.fluxbox/icon/thunderbird.png>
     [exec] (CherryTree) {cherrytree} </home/vyga/.fluxbox/icon/cherrytree.png>

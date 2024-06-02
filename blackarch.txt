@@ -55,25 +55,25 @@ NC210/NC110
 ----------------------------------------------ЗАПИСЬ ФЛЕШКИ----------------------------------------------
 
 https://archlinux.org/download/
-Current Release: 2024.03.01
-Included Kernel: 6.7.6
-ISO Size: 942.3 MB
+Current Release: 2024.06.01
+Included Kernel: 6.9.3
+ISO Size: 1.1 GB
 
-SHA256: 0062e39e57d492672712467fdb14371fca4e3a5c57fed06791be95da8d4a60e3
+SHA256: 4cc7e1c9f4e97b384f0d8731f317b5995bde256fcc17160d32359cab923c5892
 
 // Проверить статус зеркал
 https://archlinux.org/mirrors/status/
 Successfully Syncing Mirrors
 
-wget https://mirror.sunred.org/archlinux/iso/2024.03.01/archlinux-2024.03.01-x86_64.iso
-wget https://mirror.sunred.org/archlinux/iso/2024.03.01/arch/pkglist.x86_64.txt 
+wget https://mirror.sunred.org/archlinux/iso/2024.06.01/archlinux-2024.06.01-x86_64.iso
+wget https://mirror.sunred.org/archlinux/iso/2024.06.01/arch/pkglist.x86_64.txt 
 
-sha256sum archlinux-2024.03.01-x86_64.iso
+sha256sum archlinux-2024.06.01-x86_64.iso
 
 // С помощью dd удалите таблицу разделов
 sudo dd if=/dev/zero of=/dev/sdc bs=1M count=1
 // записать образ на флэшку
-sudo dd if=archlinux-2024.03.01-x86_64.iso of=/dev/sdc
+sudo dd if=archlinux-2024.06.01-x86_64.iso of=/dev/sdc
 
 ------------------------------------------------ПОДГОТОВКА-----------------------------------------------
 

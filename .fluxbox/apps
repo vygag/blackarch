@@ -2,6 +2,14 @@
 [Position] (Center) {0 0}
 [end]
 
+[app] (name=feh)
+[Position] (Center) {0 0}
+[end]
+
+[app] (name=mediainfo-gui)
+[Position] (Center) {0 0}
+[end]
+
 [app] (name=nm-applet)
 [Position] (Center) {0 0}
 [end]
@@ -52,17 +60,34 @@
 [Maximized] {yes}
 [end]
 
-[app] (name=chromium) (class=Chromium) (role=browser)
-[Maximized] {yes}
-[Deco] {BORDER}
-[end]
-
 [app](name=Navigator)(class=Pale moon)(role=browser)
 [Maximized] {yes}
 [Deco] {BORDER}
 [end]
 
 [app] (name=Places) (class=Pale moon) (role=Organizer)
+[Maximized] {yes}
+[end]
+
+[app] (name=Navigator) (class=Tor Browser) (role=browser)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[app] (name=Places) (class=Tor Browser) (role=Organizer)
+[Maximized] {yes}
+[end]
+
+[app] (name=chromium) (class=Chromium) (role=browser)
+[Maximized] {yes}
+[Deco] {BORDER}
+[end]
+
+[transient] (name=chromium) (class=Chromium)
+[Maximized] {yes}
+[end]
+
+[transient] (name=xdg-desktop-portal-gtk) (class=Xdg-desktop-portal-gtk) (role=GtkFileChooserDialog)
 [Maximized] {yes}
 [end]
 
